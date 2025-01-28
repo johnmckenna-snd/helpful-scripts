@@ -1,0 +1,25 @@
+# Ignore common temporary files
+*~
+*.swp
+*.tmp
+*.bak
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Ignore compiled binaries
+*.o
+*.a
+*.so
+*.exe
+
+# Ignore log files
+*.log
+log/
+logs/
+
+# Ignore specific files or directories
+# For example, if you have a 'temp' directory:
+temp/
