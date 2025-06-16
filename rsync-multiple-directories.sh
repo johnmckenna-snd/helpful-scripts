@@ -121,15 +121,16 @@ echo "============================"
 echo "Verification (file counts):"
 echo "============================"
 for folder in "${FOLDERS[@]}"; do
-    folder_name=$(basename "$folder")
-    echo "Folder: $folder_name"
+    # Create safe remote path name
+    remote_folder_path=$(echo "$folder" | sed 's|^/||' | sed 's|/$||' | tr '/' '_')
+    echo "Folder: $folder (remote: sync_$remote_folder_path)"
     
     for machine in "${MACHINES[@]}"; do
         if [ "$machine" = "localhost" ]; then
             count=$(find "$folder" -type f 2>/dev/null | wc -l)
             echo "  $machine: $count files"
         else
-            count=$(ssh "$machine" "find ~/$folder_name -type f 2>/dev/null | wc -l" 2>/dev/null)
+            count=$(ssh "$machine" "find ~/sync_$remote_folder_path -type f 2>/dev/null | wc -l" 2>/dev/null)
             if [ $? -eq 0 ]; then
                 echo "  $machine: $count files"
             else
